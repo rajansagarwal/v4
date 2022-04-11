@@ -39,13 +39,20 @@ function EditPost() {
     router.push('/my-posts')
   }
   return (
-    <div>
+    <div  className='p-[15vmin]'>
       <h1 className="text-3xl font-semibold tracking-wide mt-6 mb-2">Edit post</h1>
       <input
         onChange={onChange}
         name="title"
         placeholder="Title"
         value={post.title}
+        className="border-b pb-2 text-lg my-4 focus:outline-none w-full font-light text-gray-500 placeholder-gray-500 y-2"
+      /> 
+      <input
+        onChange={onChange}
+        name="subtitle"
+        placeholder="Subtitle"
+        value={post.subtitle}
         className="border-b pb-2 text-lg my-4 focus:outline-none w-full font-light text-gray-500 placeholder-gray-500 y-2"
       /> 
       <SimpleMDE value={post.content} onChange={value => setPost({ ...post, content: value })} />

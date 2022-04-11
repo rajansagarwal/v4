@@ -6,12 +6,12 @@ function Profile(props) {
     const { user } = Auth.useUser();
     if (user)
       return (
-        <>
+        <div className='p-[15vmin]'>
           <Text>Signed in: {user.email}</Text>
           <Button block onClick={() => props.supabaseClient.auth.signOut()}>
             Sign out
           </Button>
-        </>
+        </div>
       );
     return props.children 
 }
