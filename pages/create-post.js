@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { v4 as uuid } from 'uuid'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
@@ -10,6 +10,7 @@ const initialState = { title: '', content: '', subtitle: '', date: '' }
 
 function CreatePost() {
   const [post, setPost] = useState(initialState)
+  const [authorized, setAuthorized] = useState(false)
   const { title, content, subtitle, date } = post
   const router = useRouter()
   function onChange(e) {
@@ -17,6 +18,12 @@ function CreatePost() {
   }
 
   const user = supabase.auth.user()
+
+  useEffect(() => {
+      if (user.email === 'rajan.ag005@gmail.com') {
+          setAuthorized(true)
+      }
+  })
 
   async function createNewPost() {
     if (!title || !content) return  
@@ -32,6 +39,8 @@ function CreatePost() {
   }
   return (
     <div className="p-[15vmin]">
+    { authorized ? (
+        <div>
       <h1 className="text-3xl font-semibold tracking-wide mt-6">Create new post</h1>
       <input
         onChange={onChange}
@@ -63,6 +72,12 @@ function CreatePost() {
         className="mb-4 bg-green-600 text-white font-semibold px-8 py-2 rounded-lg"
         onClick={createNewPost}
       >Create Post</button>
+      </div>
+      ) : (
+        <div>
+            you don&#39;t have access to this page!
+        </div>
+      )}
     </div>
   )
 }

@@ -11,6 +11,7 @@ export default function Post({ post }) {
     <div className="mt-20 md:pl-[15vmin] md:pr-[15vmin] pl-[3vmin] pr-[3vmin]">
       <h1 className="text-4xl text-black mt-4 font-bold tracking-wide">{post.title}</h1>
       <p className="text-lg text-black font-mono font-light my-4">{post.subtitle}</p>
+      <p className="text-md text-black font-mono font-light my-4">Posted {post.date}</p>
       <div className="mt-8">
         <ReactMarkdown className='font-sans lg:prose-lg prose-sm'>
         {post.content}
