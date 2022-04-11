@@ -37,6 +37,10 @@ export default function Home() {
       </Head>
 
       <h1 className="text-3xl font-semibold tracking-wide mt-6 mb-2 font-mono text-white">Posts</h1>
+      <div style={{
+              display: 'flex',
+              flexDirection: 'column-reverse'
+            }}>
       {
         posts.map(post => (
           <Link key={post.id} href={`/posts/${post.id}`}>
@@ -48,6 +52,7 @@ export default function Home() {
           </Link>)
         )
       }
+      </div>
     </div>
   )
 }

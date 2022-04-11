@@ -195,11 +195,14 @@ const [loading, setLoading] = useState(true)
           <div className="mt-4 lg:mt-0 lg:row-span-4">
             <p className="text-2xl text-gray-100 font-bold  hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block pb-6">latest <u><Link href="writings">thoughts</Link></u></p>
 
-            <div className="mt-6 text-gray-200">
+            <div className="mt-6 text-gray-200" style={{
+              display: 'flex',
+              flexDirection: 'column-reverse'
+            }}>
             {
         posts.map(post => (
           <Link key={post.id} href={`/posts/${post.id}`}>
-            <a className="block border-black mt-6 pb-4">
+            <a className="block border-black mb-6 pb-4">
             <p className="text-2xl text-gray-200 pb-2 context">{post.title}</p>
             <p className="text-md text-gray-400 context">{post.subtitle} | <span className='text-sm'>{post.date}</span></p>
             </a>
