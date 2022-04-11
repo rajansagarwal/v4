@@ -201,7 +201,7 @@ const [loading, setLoading] = useState(true)
           <Link key={post.id} href={`/posts/${post.id}`}>
             <a className="block border-black mt-6 pb-4">
             <p className="text-2xl text-gray-200 pb-2 context">{post.title}</p>
-            <p className="text-md text-gray-400 context"><span className='text-sm'>{post.inserted_at}</span></p>
+            <p className="text-md text-gray-400 context">{post.subtitle} | Posted <span className='text-sm'>{post.date}</span></p>
             </a>
           </Link>)
         )

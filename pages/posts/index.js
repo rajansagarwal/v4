@@ -43,7 +43,7 @@ export default function Home() {
             <a className="block border-b border-gray-300 mt-8 pb-4">
               <h2 className="text-xl font-medium font-mono text-white">{post.title}</h2>
               <p className="text-gray-500 mt-2 context text-white text-lg">{post.subtitle}</p>
-              <p className="text-gray-500 mt-2 context text-white">Posted: {post.inserted_at}</p>
+              <p className="text-gray-500 mt-2 context text-white">Posted: {post.date}</p>
             </a>
           </Link>)
         )

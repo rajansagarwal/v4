@@ -6,11 +6,11 @@ import "easymde/dist/easymde.min.css"
 import { supabase } from '../api'
 
 const SimpleMDE = dynamic(() => import('react-simplemde-editor'), { ssr: false })
-const initialState = { title: '', content: '', subtitle: '' }
+const initialState = { title: '', content: '', subtitle: '', date: '' }
 
 function CreatePost() {
   const [post, setPost] = useState(initialState)
-  const { title, content, subtitle } = post
+  const { title, content, subtitle, date } = post
   const router = useRouter()
   function onChange(e) {
     setPost(() => ({ ...post, [e.target.name]: e.target.value }))
@@ -25,7 +25,7 @@ function CreatePost() {
     const { data } = await supabase
       .from('posts')
       .insert([
-          { title, content, subtitle, user_id: user.id, user_email: user.email }
+          { title, content, date, subtitle, user_id: user.id, user_email: user.email }
       ])
       .single()
     router.push(`/posts/${data.id}`)
@@ -45,6 +45,13 @@ function CreatePost() {
         name="subtitle"
         placeholder="Subtitle"
         value={post.subtitle}
+        className="border-b pb-2 text-lg my-4 focus:outline-none w-full font-light text-gray-500 placeholder-gray-500 y-2"
+      /> 
+      <input
+        onChange={onChange}
+        name="date"
+        placeholder="Date"
+        value={post.date}
         className="border-b pb-2 text-lg my-4 focus:outline-none w-full font-light text-gray-500 placeholder-gray-500 y-2"
       /> 
       <SimpleMDE

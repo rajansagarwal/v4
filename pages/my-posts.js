@@ -30,7 +30,9 @@ export default function MyPosts() {
         posts.map((post, index) => (
           <div key={index} className="border-b border-gray-300	mt-8 pb-4">
             <h2 className="text-xl font-semibold">{post.title}</h2>
-            <p className="text-gray-500 mt-2 mb-2">Author: {post.user_email}</p>
+            <h2 className="text-md font-semibold">{post.subtitle}</h2>
+            <h2 className="text-md font-semibold">{post.date}</h2>
+            <p className="text-gray-500 mt-2 mb-2">Admin, Logged In As: {post.user_email}</p>
             <Link href={`/edit-post/${post.id}`}><a className="text-sm mr-4 text-blue-500">Edit Post</a></Link>
             <Link href={`/posts/${post.id}`}><a className="text-sm mr-4 text-blue-500">View Post</a></Link>
             <button
