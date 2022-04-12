@@ -14,7 +14,7 @@ export default function MyPosts() {
       .from('posts')
       .select('*')
       .filter('user_id', 'eq', user.id)
-      .filter('type', 'in', '("Blog")')
+      .filter('type', 'in', '("Paper")')
     setPosts(data)
   }
   async function deletePost(id) {
@@ -26,7 +26,7 @@ export default function MyPosts() {
   }
   return (
     <div className="p-[15vmin]">
-      <h1 className="text-3xl font-semibold tracking-wide mt-6 mb-2">My Posts</h1>
+      <h1 className="text-3xl font-semibold tracking-wide mt-6 mb-2">Papers & Work Management</h1>
       {
         posts.map((post, index) => (
           <div key={index} className="border-b border-gray-300	mt-8 pb-4">

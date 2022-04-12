@@ -9,7 +9,7 @@ export default function Home() {
   useEffect(() => {
     fetchPosts()
     const mySubscription = supabase
-      .from('posts')
+      .from('papers')
       .on('*', () => {
         console.log('something happened....')
         fetchPosts()
@@ -21,7 +21,7 @@ export default function Home() {
     const { data, error } = await supabase
       .from('posts')
       .select()
-      .filter('type', 'in', '("Blog")')
+      .filter('type', 'in', '("Paper")')
     setPosts(data)
     setLoading(false)
   }
@@ -34,10 +34,10 @@ export default function Home() {
         background: 'black'
     }}>
       <Head>
-        <title>Rajan | Posts</title>
+        <title>Rajan | Papers</title>
       </Head>
 
-      <h1 className="text-3xl font-semibold tracking-wide mt-6 mb-2 font-mono text-white">Posts</h1>
+      <h1 className="text-3xl font-semibold tracking-wide mt-6 mb-2 font-mono text-white">Papers & Work</h1>
       <div style={{
               display: 'flex',
               flexDirection: 'column-reverse'

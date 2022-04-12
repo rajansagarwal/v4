@@ -16,10 +16,10 @@ function EditPost() {
     async function fetchPost() {
       if (!id) return
       const { data } = await supabase
-        .from('posts')
+        .from('papers')
         .select()
         .filter('id', 'eq', id)
-        .filter('type', 'in', '("Blog")')
+        .filter('type', 'in', '("Paper")')
         .single()
       setPost(data)
     }
@@ -28,16 +28,16 @@ function EditPost() {
   function onChange(e) {
     setPost(() => ({ ...post, [e.target.name]: e.target.value }))
   }
-  const { title, content, subtitle, type } = post
+  const { title, content, subtitle } = post
   async function updateCurrentPost() {
     if (!title || !content) return
     await supabase
-      .from('posts')
+      .from('papers')
       .update([
-          { title, content, subtitle, type }
+          { title, content, subtitle }
       ])
       .match({ id })
-    router.push('/my-posts')
+    router.push('/my-papers')
   }
   return (
     <div  className='p-[15vmin]'>

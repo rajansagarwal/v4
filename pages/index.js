@@ -117,22 +117,43 @@ function classNames(...classes) {
 export default function Home() {
 
 const [posts, setPosts] = useState([])
+const [papers, setPapers] = useState([])
 const [loading, setLoading] = useState(true)
   useEffect(() => {
-    fetchPosts()
+    fetchPapers()
     const mySubscription = supabase
       .from('posts')
       .on('*', () => {
         console.log('something happened....')
-        fetchPosts()
+        fetchPapers()
       })
       .subscribe()
     return () => supabase.removeSubscription(mySubscription)
   }, [])
-  async function fetchPosts() {
+  useEffect(() => {
+    fetchBlogs()
+    const mySubscription = supabase
+      .from('posts')
+      .on('*', () => {
+        console.log('something happened....')
+        fetchBlogs()
+      })
+      .subscribe()
+    return () => supabase.removeSubscription(mySubscription)
+  }, [])
+  async function fetchPapers() {
     const { data, error } = await supabase
       .from('posts')
       .select()
+      .filter('type', 'in', '("Paper")')
+    setPapers(data)
+    setLoading(false)
+  }
+  async function fetchBlogs() {
+    const { data, error } = await supabase
+      .from('posts')
+      .select()
+      .filter('type', 'in', '("Blog")')
     setPosts(data)
     setLoading(false)
   }
@@ -193,18 +214,37 @@ const [loading, setLoading] = useState(true)
           </div>
 
           <div className="mt-4 lg:mt-0 lg:row-span-4">
-            <p className="text-2xl text-gray-100 font-bold  hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block pb-6">latest <u><Link href="writings">thoughts</Link></u></p>
+            <p className="text-2xl text-gray-100 font-bold  hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block pb-6">latest <u><Link href="posts">thoughts</Link></u></p>
 
             <div className="mt-6 text-gray-200" style={{
               display: 'flex',
               flexDirection: 'column-reverse'
             }}>
             {
-        posts.map(post => (
+        posts.slice(0, 10).map(post => (
           <Link key={post.id} href={`/posts/${post.id}`}>
             <a className="block border-black mb-6 pb-4">
             <p className="text-2xl text-gray-200 pb-2 context">{post.title}</p>
-            <p className="text-md text-gray-400 context">{post.subtitle} | <span className='text-sm'>{post.date}</span></p>
+            <p className="text-md text-gray-400 context">{post.type} - {post.subtitle}</p>
+            </a>
+          </Link>)
+        )
+      }
+
+            </div>
+
+            <p className="text-2xl text-gray-100 font-bold  hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block pb-6"><u><Link href="/papers">papers & work</Link></u></p>
+
+            <div className="mt-6 text-gray-200" style={{
+              display: 'flex',
+              flexDirection: 'column-reverse'
+            }}>
+            {
+        papers.slice(0, 4).map(post => (
+          <Link key={post.id} href={`/posts/${post.id}`}>
+            <a className="block border-black mb-6 pb-4">
+            <p className="text-2xl text-gray-200 pb-2 context">{post.title}</p>
+            <p className="text-md text-gray-400 context">{post.type} - {post.subtitle}</p>
             </a>
           </Link>)
         )
@@ -213,7 +253,6 @@ const [loading, setLoading] = useState(true)
             </div>
 
           </div>
-          
 
           <div className="py-10 lg:pt-6 lg:pb-16 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-800 lg:pr-8">
             <div>
