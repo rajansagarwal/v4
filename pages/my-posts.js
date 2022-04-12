@@ -27,6 +27,10 @@ export default function MyPosts() {
   return (
     <div className="p-[15vmin]">
       <h1 className="text-3xl font-semibold tracking-wide mt-6 mb-2">My Posts</h1>
+      <div style={{
+              display: 'flex',
+              flexDirection: 'column-reverse'
+            }}>
       {
         posts.map((post, index) => (
           <div key={index} className="border-b border-gray-300	mt-8 pb-4">
@@ -43,6 +47,7 @@ export default function MyPosts() {
           </div>
         ))
       }
+      </div>
     </div>
   )
 }
