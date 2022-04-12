@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { supabase } from '../api'
+import { supabase } from '../../api'
 
 export default function MyPosts() {
   const [posts, setPosts] = useState([])
@@ -14,7 +14,7 @@ export default function MyPosts() {
       .from('posts')
       .select('*')
       .filter('user_id', 'eq', user.id)
-      .filter('type', 'in', '("Paper")')
+      .filter('type', 'in', '("Blog")')
     setPosts(data)
   }
   async function deletePost(id) {
@@ -26,7 +26,11 @@ export default function MyPosts() {
   }
   return (
     <div className="p-[15vmin]">
-      <h1 className="text-3xl font-semibold tracking-wide mt-6 mb-2">Papers & Work Management</h1>
+      <h1 className="text-3xl font-semibold tracking-wide mt-6 mb-2">My Posts</h1>
+      <div style={{
+              display: 'flex',
+              flexDirection: 'column-reverse'
+            }}>
       {
         posts.map((post, index) => (
           <div key={index} className="border-b border-gray-300	mt-8 pb-4">
@@ -43,6 +47,7 @@ export default function MyPosts() {
           </div>
         ))
       }
+      </div>
     </div>
   )
 }
