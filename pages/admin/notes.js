@@ -14,7 +14,7 @@ export default function MyPosts() {
       .from('posts')
       .select('*')
       .filter('user_id', 'eq', user.id)
-      .filter('type', 'in', '("Blog")')
+      .filter('type', 'in', '("Notes")')
     setPosts(data)
   }
   async function deletePost(id) {
@@ -26,11 +26,7 @@ export default function MyPosts() {
   }
   return (
     <div className="p-[15vmin]">
-      <h1 className="text-3xl font-semibold tracking-wide mt-6 mb-2">My Posts</h1>
-      <div style={{
-              display: 'flex',
-              flexDirection: 'column-reverse'
-            }}>
+      <h1 className="text-3xl font-semibold tracking-wide mt-6 mb-2">Notes</h1>
       {
         posts.map((post, index) => (
           <div key={index} className="border-b border-gray-300	mt-8 pb-4">
@@ -38,8 +34,8 @@ export default function MyPosts() {
             <h2 className="text-md font-semibold">{post.subtitle}</h2>
             <h2 className="text-md font-semibold">{post.date}</h2>
             <p className="text-gray-500 mt-2 mb-2">Admin, Logged In As: {post.user_email}</p>
-            <Link href={`/admin/edit/${post.id}`}><a className="text-sm mr-4 text-blue-500">Edit Post</a></Link>
-            <Link href={`/posts/${post.id}`}><a className="text-sm mr-4 text-blue-500">View Post</a></Link>
+            <Link href={`/admin/edit/${post.id}`}><a className="text-sm mr-4 text-blue-500">Edit Note</a></Link>
+            <Link href={`/posts/${post.id}`}><a className="text-sm mr-4 text-blue-500">View Note</a></Link>
             <button
               className="text-sm mr-4 text-red-500"
               onClick={() => deletePost(post.id)}
@@ -47,7 +43,6 @@ export default function MyPosts() {
           </div>
         ))
       }
-      </div>
     </div>
   )
 }

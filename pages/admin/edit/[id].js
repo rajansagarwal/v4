@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import "easymde/dist/easymde.min.css"
-import { supabase } from '../../api'
+import { supabase } from '../../../api'
+import Head from 'next/head'
 
 const SimpleMDE = dynamic(() => import('react-simplemde-editor'), { ssr: false })
 
@@ -41,6 +42,10 @@ function EditPost() {
   }
   return (
     <div  className='p-[15vmin]'>
+      <Head>
+        <title>{post.title} | Rajan Agarwal</title>
+        <meta name='description' content={post.subtitle} />
+      </Head>
       <h1 className="text-3xl font-semibold tracking-wide mt-6 mb-2">Edit post</h1>
       <input
         onChange={onChange}

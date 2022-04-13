@@ -21,7 +21,7 @@ export default function Home() {
     const { data, error } = await supabase
       .from('posts')
       .select()
-      .filter('type', 'in', '("Paper")')
+      .filter('type', 'in', '("Notes")')
     setPosts(data)
     setLoading(false)
   }

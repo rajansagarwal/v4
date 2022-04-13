@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import ReactMarkdown from 'react-markdown'
 import { supabase } from '../../api'
-import Link from 'next/link'
+import Head from 'next/head'
 
 export default function Post({ post }) {
   const router = useRouter()
@@ -10,6 +10,10 @@ export default function Post({ post }) {
   }
   return (
     <div className="mt-20 md:pl-[15vmin] md:pr-[35vmin] pl-[3vmin] pr-[3vmin]">
+      <Head>
+        <title>{post.title} | Rajan Agarwal</title>
+        <meta name='description' content={post.subtitle} />
+      </Head>
       <h1 className="text-4xl text-black mt-4 font-bold font-mono tracking-wide">{post.title}</h1>
       <h1 className="text-xl text-black mt-4 font-bold font-mono tracking-wide">{post.type} | {post.subtitle}</h1>
       <p className="text-md text-black font-mono font-light my-4">{post.date}</p><hr/>

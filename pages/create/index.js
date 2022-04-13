@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import "easymde/dist/easymde.min.css"
 import { supabase } from '../../api'
+import Head from 'next/head'
 
 const SimpleMDE = dynamic(() => import('react-simplemde-editor'), { ssr: false })
 const initialState = { title: '', content: '', subtitle: '', date: '', type: '' }
@@ -39,6 +40,10 @@ function CreatePost() {
   }
   return (
     <div className="p-[15vmin]">
+      <Head>
+        <title>Rajan Agarwal -- {post.title}</title>
+        <meta name='description' content={post.subtitle} />
+      </Head>
     { authorized ? (
         <div>
       <h1 className="text-3xl font-semibold tracking-wide mt-6">Create new post</h1>
@@ -52,7 +57,7 @@ function CreatePost() {
       <input
         onChange={onChange}
         name="subtitle"
-        placeholder="Subtitle"
+        placeholder="Subtitle / Subject"
         value={post.subtitle}
         className="border-b pb-2 text-lg my-4 focus:outline-none w-full font-light text-gray-500 placeholder-gray-500 y-2"
       /> 
