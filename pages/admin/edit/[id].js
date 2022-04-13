@@ -20,7 +20,6 @@ function EditPost() {
         .from('posts')
         .select()
         .filter('id', 'eq', id)
-        .filter('type', 'in', '("Blog")')
         .single()
       setPost(data)
     }
@@ -38,7 +37,7 @@ function EditPost() {
           { title, content, subtitle, type }
       ])
       .match({ id })
-    router.push('/my-posts')
+    router.push('/posts')
   }
   return (
     <div  className='p-[15vmin]'>

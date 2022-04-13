@@ -118,6 +118,7 @@ export default function Home() {
 
 const [posts, setPosts] = useState([])
 const [papers, setPapers] = useState([])
+const [notes, setNotes] = useState([])
 const [loading, setLoading] = useState(true)
   useEffect(() => {
     fetchPapers()
@@ -126,6 +127,17 @@ const [loading, setLoading] = useState(true)
       .on('*', () => {
         console.log('something happened....')
         fetchPapers()
+      })
+      .subscribe()
+    return () => supabase.removeSubscription(mySubscription)
+  }, [])
+  useEffect(() => {
+    fetchNotes()
+    const mySubscription = supabase
+      .from('posts')
+      .on('*', () => {
+        console.log('something happened....')
+        fetchNotes()
       })
       .subscribe()
     return () => supabase.removeSubscription(mySubscription)
@@ -147,6 +159,14 @@ const [loading, setLoading] = useState(true)
       .select()
       .filter('type', 'in', '("Paper")')
     setPapers(data)
+    setLoading(false)
+  }
+  async function fetchNotes() {
+    const { data, error } = await supabase
+      .from('posts')
+      .select()
+      .filter('type', 'in', '("Notes")')
+    setNotes(data)
     setLoading(false)
   }
   async function fetchBlogs() {
@@ -233,7 +253,7 @@ const [loading, setLoading] = useState(true)
 
             </div>
 
-            <p className="text-2xl text-gray-100 font-bold  hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block pb-6"><u><Link href="/papers">papers & work</Link></u></p>
+            <p className="text-2xl text-gray-100 font-bold  hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block pb-3 pt-3"><u><Link href="/papers">papers & work</Link></u></p>
 
             <div className="mt-6 text-gray-200" style={{
               display: 'flex',
@@ -252,13 +272,32 @@ const [loading, setLoading] = useState(true)
 
             </div>
 
+            <p className="text-2xl text-gray-100 font-bold  hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block pb-3 pt-3"><u><Link href="/notes">notes</Link></u></p>
+
+            <div className="mt-6 text-gray-200" style={{
+              display: 'flex',
+              flexDirection: 'column-reverse'
+            }}>
+            {
+        notes.slice(0, 4).map(post => (
+          <Link key={post.id} href={`/posts/${post.id}`}>
+            <a className="block border-black mb-6 pb-4">
+            <p className="text-2xl text-gray-200 pb-2 context">{post.title}</p>
+            <p className="text-md text-gray-400 context">{post.type} - {post.subtitle}</p>
+            </a>
+          </Link>)
+        )
+      }
+
+            </div>
+
           </div>
 
           <div className="py-10 lg:pt-6 lg:pb-16 lg:col-start-1 lg:col-span-2 lg:border-r lg:border-gray-800 lg:pr-8">
             <div>
 
               <div className="space-y-6">
-                <p className="text-lg text-gray-200 context">{product.description}<br/><br/>
+                <p className="text-xl text-gray-200 context">{product.description}<br/><br/>
                 currently, i&#39;m working on a <u>path <a href="https://towards.live">towards</a> atruistic tech</u>. i envision a future of actionable software & reciprocal automation, through a transparent technical revolution. here, i have created public policy petitions, a new form of poetic expression and idyllic biotech.
                 <br/><br/>
                 within organizations, i write curriculum infrastructure, design mental health resource access, inspire youth to code and work on the international public health crisis. in my community, i wrote a childrens novel for autism awareness and running 160km for indigenous reconciliation.
