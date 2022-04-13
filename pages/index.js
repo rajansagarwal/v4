@@ -165,7 +165,7 @@ const [loading, setLoading] = useState(true)
     const { data, error } = await supabase
       .from('posts')
       .select()
-      .filter('type', 'in', '("Notes")')
+      .filter('type', 'in', '("Notes", "Papers)')
     setNotes(data)
     setLoading(false)
   }
@@ -253,14 +253,14 @@ const [loading, setLoading] = useState(true)
 
             </div>
 
-            <p className="text-2xl text-gray-100 font-bold  hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block pb-3 pt-3"><u><Link href="/papers">papers & work</Link></u></p>
+            <p className="text-2xl text-gray-100 font-bold  hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block pb-3 pt-3"><u><Link href="/notes">notes, papers & work</Link></u></p>
 
             <div className="mt-6 text-gray-200" style={{
               display: 'flex',
               flexDirection: 'column-reverse'
             }}>
             {
-        papers.slice(0, 4).map(post => (
+        notes.slice(0, 7).map(post => (
           <Link key={post.id} href={`/posts/${post.id}`}>
             <a className="block border-black mb-6 pb-4">
             <p className="text-2xl text-gray-200 pb-2 context">{post.title}</p>
@@ -272,7 +272,7 @@ const [loading, setLoading] = useState(true)
 
             </div>
 
-            <p className="text-2xl text-gray-100 font-bold  hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block pb-3 pt-3"><u><Link href="/notes">notes</Link></u></p>
+       {/*     <p className="text-2xl text-gray-100 font-bold  hidden aspect-w-3 aspect-h-4 rounded-lg overflow-hidden lg:block pb-3 pt-3"><u><Link href="/notes">notes</Link></u></p>
 
             <div className="mt-6 text-gray-200" style={{
               display: 'flex',
@@ -289,7 +289,7 @@ const [loading, setLoading] = useState(true)
         )
       }
 
-            </div>
+    </div> */}
 
           </div>
 
