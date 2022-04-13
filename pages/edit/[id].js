@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import "easymde/dist/easymde.min.css"
-import { supabase } from '../../../api'
+import { supabase } from '../../api'
 import Head from 'next/head'
 
 const SimpleMDE = dynamic(() => import('react-simplemde-editor'), { ssr: false })
@@ -28,16 +28,17 @@ function EditPost() {
   function onChange(e) {
     setPost(() => ({ ...post, [e.target.name]: e.target.value }))
   }
-  const { title, content, subtitle, type } = post
+  const { title, content, subtitle, type, date } = post
   async function updateCurrentPost() {
     if (!title || !content) return
     await supabase
       .from('posts')
       .update([
-          { title, content, subtitle, type }
+          { title, content, subtitle, type, date }
       ])
       .match({ id })
-    router.push('/posts')
+    console.log(post)
+    router.push(`/all`)
   }
   return (
     <div  className='p-[15vmin]'>
