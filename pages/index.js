@@ -165,7 +165,7 @@ const [loading, setLoading] = useState(true)
     const { data, error } = await supabase
       .from('posts')
       .select()
-      .filter('type', 'in', '("Notes", "Papers")')
+      .filter('type', 'in', '("Notes", "Paper")')
     setNotes(data)
     setLoading(false)
   }
@@ -227,7 +227,6 @@ const [loading, setLoading] = useState(true)
           </div>
         </div>
 
-        {/* Product info */}
         <div className="max-w-2xl mx-auto pt-10 pb-16 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
           <div className="lg:col-span-2 lg:border-r lg:border-gray-800 lg:pr-8">
             <h1 className="text-2xl font-bold tracking-tight text-gray-100 sm:text-3xl pb-6">Hey, I&#39;m <b>Rajan</b></h1>
@@ -242,7 +241,7 @@ const [loading, setLoading] = useState(true)
             }}>
             {
         posts.slice(0, 10).map(post => (
-          <Link key={post.id} href={`/posts/${post.id}`}>
+          <Link key={post.id} href={`/${post.slug}`}>
             <a className="block border-black mb-6 pb-4">
             <p className="text-2xl text-gray-200 pb-2 context">{post.title}</p>
             <p className="text-md text-gray-400 context">{post.type} - {post.subtitle}</p>
@@ -261,7 +260,7 @@ const [loading, setLoading] = useState(true)
             }}>
             {
         notes.slice(0, 7).map(post => (
-          <Link key={post.id} href={`/posts/${post.id}`}>
+          <Link key={post.id} href={`/${post.slug}`}>
             <a className="block border-black mb-6 pb-4">
             <p className="text-2xl text-gray-200 pb-2 context">{post.title}</p>
             <p className="text-md text-gray-400 context">{post.type} - {post.subtitle}</p>

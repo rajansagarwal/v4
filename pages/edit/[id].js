@@ -28,17 +28,17 @@ function EditPost() {
   function onChange(e) {
     setPost(() => ({ ...post, [e.target.name]: e.target.value }))
   }
-  const { title, content, subtitle, type, date } = post
+  const { title, content, subtitle, type, date, slug } = post
   async function updateCurrentPost() {
     if (!title || !content) return
     await supabase
       .from('posts')
       .update([
-          { title, content, subtitle, type, date }
+          { title, content, subtitle, type, date, slug }
       ])
       .match({ id })
     console.log(post)
-    router.push(`/all`)
+    router.push(`/posts/${post.id}`)
   }
   return (
     <div  className='p-[15vmin]'>
@@ -66,6 +66,13 @@ function EditPost() {
         name="type"
         placeholder="Type"
         value={post.type}
+        className="border-b pb-2 text-lg my-4 focus:outline-none w-full font-light text-gray-500 placeholder-gray-500 y-2"
+      /> 
+      <input
+        onChange={onChange}
+        name="slug"
+        placeholder="Slug"
+        value={post.slug}
         className="border-b pb-2 text-lg my-4 focus:outline-none w-full font-light text-gray-500 placeholder-gray-500 y-2"
       /> 
       <SimpleMDE value={post.content} onChange={value => setPost({ ...post, content: value })} />
