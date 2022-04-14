@@ -165,7 +165,7 @@ const [loading, setLoading] = useState(true)
     const { data, error } = await supabase
       .from('posts')
       .select()
-      .filter('type', 'in', '("Notes", "Papers)')
+      .filter('type', 'in', '("Notes", "Papers")')
     setNotes(data)
     setLoading(false)
   }
