@@ -9,11 +9,12 @@ export default function Post({ post }) {
     return <div>Loading...</div>
   }
   return (
-    <div className="mt-20 md:pl-[15vmin] md:pr-[35vmin] pl-[3vmin] pr-[3vmin]">
-      <Head>
-        <title>{post.title} | Rajan Agarwal</title>
+    <div>
+        <Head>
+        <title>{post.title}</title>
         <meta name='description' content={post.subtitle} />
       </Head>
+    <div className="mt-20 md:pl-[15vmin] md:pr-[35vmin] pl-[3vmin] pr-[3vmin]">
       <h1 className="text-4xl text-black mt-4 font-bold font-mono tracking-wide">{post.title}</h1>
       <h1 className="text-xl text-black mt-4 font-bold font-mono tracking-wide">{post.type} | {post.subtitle}</h1>
       <p className="text-md text-black font-mono font-light my-4">{post.date}</p><hr/>
@@ -25,6 +26,7 @@ export default function Post({ post }) {
       <br/><hr/><br/>
 
       <br/><br/>
+    </div>
     </div>
   )
 }
