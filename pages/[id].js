@@ -11,10 +11,6 @@ export default function Post({ post }) {
   console.log(router)
   return (
     <div>
-        <Head>
-        <title>{post.title}</title>
-        <meta name='description' content={post.subtitle} />
-      </Head>
     <div className="mt-20 md:pl-[15vmin] md:pr-[35vmin] pl-[3vmin] pr-[3vmin]">
       <h1 className="text-4xl text-black mt-4 font-bold font-mono tracking-wide">{post.title}</h1>
       <h1 className="text-xl text-black mt-4 font-bold font-mono tracking-wide">{post.type} | {post.subtitle}</h1>
@@ -35,9 +31,8 @@ export default function Post({ post }) {
 export async function getStaticPaths() {
   const { data, error } = await supabase
     .from('posts')
-    .select('id')
     .select('slug')
-  const paths = data.map(post => ({ params: { id: JSON.stringify(post.slug) }}))
+  const paths = data.map(post => ({ params: { id: post.slug }}))
   return {
     paths,
     fallback: true
