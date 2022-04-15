@@ -13,15 +13,15 @@ html {
 }
 
 body {
-  overflow-x: hidden;
+  overflow-x: hidden !important;
 }
 
 
 #main-content {
   box-sizing: border-box;
-  padding: 10vh 2em 10vh 2em;
-  flex: 0 0 65%;
+  flex: 0 0 60%;
   max-height: 100vh;
+  padding: 10vh 0em 10vh 0em;
   overflow-y: auto;
 }
 
