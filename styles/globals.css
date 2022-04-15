@@ -7,3 +7,88 @@
 .context {
   font-family: 'Spectral', serif;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+
+#main-content {
+  box-sizing: border-box;
+  padding: 10vh 2em 10vh 2em;
+  flex: 0 0 65%;
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
+.two-pane {
+  display: flex;
+  height: 100vh;
+  position: relative;
+}
+
+#context-pane {
+  box-sizing: border-box;
+  flex: 0 0 50%;
+  max-height: 100vh;
+	padding-right: 10em;
+  overflow-y: auto;
+  border-left: 2px solid rgba(235, 235, 235, 0.3);
+}
+
+#contexts {
+  z-index: 1;
+  padding: 10vh 4em;
+}
+
+
+.mobile-only {
+  display: none;
+}
+
+@media only screen and (orientation: portrait) {
+  .two-pane {
+    display: block;
+  }
+
+  #canvas {
+    display: none;
+  }
+
+  #main-content, #context-pane {
+    margin: 5vh 0;
+    max-height: none;
+    overflow-y: none;
+  }
+
+  .mobile-only {
+    display: block;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+
+  .socials {
+    margin-top: 5em;
+  }
+
+  #context-pane {
+    padding-left: 0;
+		padding-right: 0;
+  }
+}
+
+@media all and (max-width: 1200px) {
+  #main-content {
+    padding: 0 2em;
+  }
+
+  #contexts {
+    padding-left: 2em;
+  }
+}

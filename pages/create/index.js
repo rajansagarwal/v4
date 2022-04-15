@@ -8,14 +8,17 @@ import Head from 'next/head'
 
 const SimpleMDE = dynamic(() => import('react-simplemde-editor'), { ssr: false })
 const initialState = { title: '', content: '', subtitle: '', date: '', type: '' }
+const initialSidebar = { context: '', sidebar: '' }
 
 function CreatePost() {
   const [post, setPost] = useState(initialState)
+  const [right, setRight] = useState(initialSidebar)
   const [authorized, setAuthorized] = useState(false)
-  const { title, content, subtitle, date, type, slug } = post
+  const { title, content, subtitle, date, type, slug, context, sidebar } = post
   const router = useRouter()
   function onChange(e) {
     setPost(() => ({ ...post, [e.target.name]: e.target.value }))
+    setRight(() => ({ ...right, [e.target.name]: e.target.value }))
   }
 
   const user = supabase.auth.user()
@@ -29,14 +32,13 @@ function CreatePost() {
   async function createNewPost() {
     if (!title || !content) return  
     const id = uuid()
-    post.id = id
     const { data } = await supabase
       .from('posts')
       .insert([
-          { title, content, type, date, subtitle, user_id: user.id, user_email: user.email, slug }
+          { title, content, type, date, context, sidebar, subtitle, user_id: user.id, user_email: user.email, slug }
       ])
       .single()
-    router.push(`/posts/${post.slug}`)
+    router.push(`/posts/${post.id}`)
   }
   return (
     <div className="p-[15vmin]">
@@ -85,6 +87,17 @@ function CreatePost() {
       <SimpleMDE
         value={post.content}
         onChange={value => setPost({ ...post, content: value })}
+      />
+      <input
+        onChange={onChange}
+        name="context"
+        placeholder="Sidebar Heading"
+        value={post.context}
+        className="border-b pb-2 text-lg my-4 focus:outline-none w-full font-light text-gray-500 placeholder-gray-500 y-2"
+      /> 
+      <SimpleMDE
+        value={post.sidebar}
+        onChange={value => setRight({ ...right, content: value })}
       />
       <button
         type="button"

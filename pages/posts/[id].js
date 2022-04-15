@@ -14,20 +14,28 @@ export default function Post({ post }) {
         <title>{post.title}</title>
         <meta name='description' content={post.subtitle} />
       </Head>
-    <div className="mt-20 md:pl-[15vmin] md:pr-[35vmin] pl-[3vmin] pr-[3vmin]">
-      <h1 className="text-4xl text-black mt-4 font-bold font-mono tracking-wide">{post.title}</h1>
-      <h1 className="text-xl text-black mt-4 font-bold font-mono tracking-wide">{post.type} | {post.subtitle}</h1>
-      <p className="text-md text-black font-mono font-light my-4">{post.date}</p><hr/>
-      <div className="mt-8">
-        <ReactMarkdown className='font-serif lg:prose-lg prose-sm'>
-        {post.content}
-        </ReactMarkdown>
+  <div className="two-pane">
+    <div id="main-content">
+      <div className="md:pl-[8vmin] md:pr-[7vmin] pl-[3vmin] pr-[3vmin]">
+        <h1 className="text-4xl text-black mt-4 font-bold font-mono tracking-wide">{post.title}</h1>
+        <h1 className="text-xl text-black mt-4 font-bold font-mono tracking-wide">{post.type} | {post.subtitle}</h1>
+        <p className="text-md text-black font-mono font-light my-4">{post.date}</p><hr/>
+        <div className="mt-8">
+          <ReactMarkdown className='font-serif lg:prose-lg prose-sm'>
+          {post.content}
+          </ReactMarkdown>
       </div>
-      <br/><hr/><br/>
-
-      <br/><br/>
+        <br/><hr/><br/><br/><br/>
+      </div>
     </div>
+    <div id="context-pane">
+      <div id="contexts">
+      <h1 className="text-xl text-black mt-4 font-bold font-mono tracking-wide">{post.context}</h1>
+      <p className="text-md text-black font-mono font-light my-4">{post.sidebar}</p><hr/>
+      </div>
     </div>
+  </div>
+</div>
   )
 }
 
