@@ -3,7 +3,7 @@ import ReactMarkdown from 'react-markdown'
 import { supabase } from '../../api'
 import Head from 'next/head'
 
-export default function Post({ post }) {
+export default function Post({ post, right }) {
   const router = useRouter()
   if (router.isFallback) {
     return <div>Loading...</div>
