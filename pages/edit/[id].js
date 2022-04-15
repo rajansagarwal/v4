@@ -56,13 +56,13 @@ function EditPost() {
 
   async function updateCurrentPost() {
     if (!title || !content) return
-    const { data} = await supabase
+    const { data } = await supabase
       .from('posts')
       .update([
           { title, content, context, sidebar, subtitle, type, date, slug }
       ])
       .match({ id })
-    console.log(data)
+    router.push(`/posts/${post.id}`)
   }
   return (
     <div  className='p-[15vmin]'>
