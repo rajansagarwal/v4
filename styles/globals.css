@@ -35,7 +35,7 @@ body {
   box-sizing: border-box;
   flex: 0 0 50%;
   max-height: 100vh;
-	padding-right: 10em;
+	padding-right: 15em;
   overflow-y: auto;
   border-left: 2px solid rgba(235, 235, 235, 0.3);
 }

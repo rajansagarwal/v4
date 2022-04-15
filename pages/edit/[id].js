@@ -15,8 +15,7 @@ function EditPost() {
 
   useEffect(() => {
     fetchPost()
-    fetchSidebar()
-
+    
     async function fetchPost() {
       if (!id) return
       const { data } = await supabase
@@ -26,15 +25,26 @@ function EditPost() {
         .single()
       setPost(data)
     }
+  }, [id])
+
+  useEffect(() => {
+    fetchSidebar()
+
     async function fetchSidebar() {
+      if (!id) return
       const { data } = await supabase
         .from('posts')
         .select('sidebar')
         .filter('id', 'eq', id)
         .single()
-      setRight(data)
+      setRight(data.sidebar)
+      console.log(data.sidebar)
     }
   }, [id])
+
+  useEffect(() => {
+      console.log(right)
+  }, [right])
 
   if (!post) return null
   function onChange(e) {
@@ -42,7 +52,7 @@ function EditPost() {
     setRight(() => ({ ...right, [e.target.name]: e.target.value }))
   }
   const { title, content, context, subtitle, type, date, slug } = post
-  const sidebar = right.content
+  const sidebar = right
 
   async function updateCurrentPost() {
     if (!title || !content) return
@@ -52,7 +62,7 @@ function EditPost() {
           { title, content, context, sidebar, subtitle, type, date, slug }
       ])
       .match({ id })
-    console.log(data[0].sidebar)
+    console.log(data)
   }
   return (
     <div  className='p-[15vmin]'>
@@ -97,7 +107,7 @@ function EditPost() {
         value={post.context}
         className="border-b pb-2 text-lg my-4 focus:outline-none w-full font-light text-gray-500 placeholder-gray-500 y-2"
       /> 
-      <SimpleMDE value={right.content} onChange={value => setRight({ ...post, content: value })} />
+      <SimpleMDE value={right} onChange={value => setRight(value)} />
       <button
         className="mb-4 bg-blue-600 text-white font-semibold px-8 py-2 rounded-lg"
         onClick={updateCurrentPost}>Update Post</button>
