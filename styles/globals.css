@@ -92,3 +92,9 @@ body {
     padding-left: 2em;
   }
 }
+
+@media all and (min-width: 2000px) {
+  #main-content {
+    flex: 0 0 75%;
+  }
+}
