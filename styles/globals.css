@@ -19,7 +19,7 @@ body {
 
 #main-content {
   box-sizing: border-box;
-  flex: 0 0 60%;
+  flex: 0 0 65%;
   max-height: 100vh;
   padding: 10vh 0em 10vh 0em;
   overflow-y: auto;
